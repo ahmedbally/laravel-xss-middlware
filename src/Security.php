@@ -13,7 +13,9 @@ use voku\helper\UTF8;
  */
 class Security
 {
-    public function __construct(private readonly AntiXSS $antiXss) {}
+    public function __construct(private readonly AntiXSS $antiXss)
+    {
+    }
 
     /**
      * Sanitize the given value.
