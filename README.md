@@ -8,7 +8,7 @@
 [![Quality Score][ico-code-quality]][link-code-quality]
 [![Total Downloads][ico-downloads]][link-downloads]
 
-A Laravel middleware to cleaning all inputs/data of request from XSS and embed elements, its used [Security Core](https://github.com/GrahamCampbell/Security-Core) package by [Graham Campbell](https://github.com/GrahamCampbell) under the hook. 
+A Laravel middleware to cleaning all inputs/data of request from XSS and embed elements, its used [voku/anti-xss](https://github.com/voku/anti-xss) under the hood. 
 
 ## Support version
 
@@ -17,7 +17,7 @@ A Laravel middleware to cleaning all inputs/data of request from XSS and embed e
 | 5.8  | ^1.0  |
 | 6.X-8.X  | ^2.0  |
 | 9.X  | ^3.0  |
-| 10.X  | ^4.0  |
+| 10.X-13.X  | ^4.0  |
 
 ## Install
 

@@ -16,7 +16,42 @@ return [
     /*
      * The middleware will used to filter xss
      */
-    'middleware'               => \Alkhwlani\XssMiddleware\XSSFilterMiddleware::class,
+    'middleware' => \Alkhwlani\XssMiddleware\XSSFilterMiddleware::class,
 
+    /*
+     * Field names that should be skipped entirely (no sanitisation, no
+     * invisible-character stripping). Useful for fields that intentionally
+     * carry HTML/markdown payloads, e.g. rich-text editor content or webhook
+     * bodies.
+     */
     'except' => [],
+
+    /*
+     |--------------------------------------------------------------------------
+     | Evil attributes / tags
+     |--------------------------------------------------------------------------
+     |
+     | Additional HTML attributes and tags that should always be stripped from
+     | the input, on top of voku/anti-xss's built-in evil list. Set to null to
+     | use only the defaults.
+     |
+     |     'evil' => [
+     |         'attributes' => ['style', 'srcdoc'],
+     |         'tags'       => ['svg', 'math'],
+     |     ],
+     */
+    'evil' => [
+        'attributes' => null,
+        'tags' => null,
+    ],
+
+    /*
+     |--------------------------------------------------------------------------
+     | Replacement string
+     |--------------------------------------------------------------------------
+     |
+     | The string used to replace removed portions of input where XSS was
+     | detected. Null preserves voku's default (empty string).
+     */
+    'replacement' => null,
 ];
