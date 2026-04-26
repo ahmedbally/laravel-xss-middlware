@@ -8,7 +8,7 @@
 [![Quality Score][ico-code-quality]][link-code-quality]
 [![Total Downloads][ico-downloads]][link-downloads]
 
-A Laravel middleware to cleaning all inputs/data of request from XSS and embed elements, its used [voku/anti-xss](https://github.com/voku/anti-xss) under the hook. 
+A Laravel middleware to cleaning all inputs/data of request from XSS and embed elements, its used [voku/anti-xss](https://github.com/voku/anti-xss) under the hood. 
 
 ## Support version
 
