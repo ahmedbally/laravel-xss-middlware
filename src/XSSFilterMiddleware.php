@@ -14,7 +14,7 @@ class XSSFilterMiddleware extends TransformsRequest
     protected $config;
 
     /**
-     * @var \voku\helper\AntiXSS
+     * @var AntiXSS
      */
     protected $security;
 
@@ -42,10 +42,6 @@ class XSSFilterMiddleware extends TransformsRequest
 
     /**
      * determine if should ignore the field.
-     *
-     * @param $key
-     * @param $value
-     * @return bool
      */
     protected function shouldIgnore($key, $value): bool
     {

@@ -23,7 +23,7 @@ class TestCase extends BaseTestCase
         ],
     ];
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
         $this->withoutExceptionHandling();
@@ -32,7 +32,7 @@ class TestCase extends BaseTestCase
 
     protected function setUpRoutes()
     {
-        $this->app->get('router')->setRoutes(new RouteCollection());
+        $this->app->get('router')->setRoutes(new RouteCollection);
         $this->app->get('router')->any('/add-middleware-auto', [$this->responseRequest()]);
         $this->app->get('router')->any('/add-middleware-manually', [
             'middleware' => 'xss-filter', $this->responseRequest(),

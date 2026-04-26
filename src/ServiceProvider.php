@@ -16,7 +16,7 @@ class ServiceProvider extends ServiceProviderAlias
      */
     public function register()
     {
-        $this->app->singleton(AntiXSS::class, fn () => new AntiXSS());
+        $this->app->singleton(AntiXSS::class, fn () => new AntiXSS);
     }
 
     /**
