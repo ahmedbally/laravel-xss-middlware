@@ -5,9 +5,20 @@ namespace Alkhwlani\XssMiddleware;
 use Illuminate\Contracts\Http\Kernel;
 use Illuminate\Support\Arr;
 use Illuminate\Support\ServiceProvider as ServiceProviderAlias;
+use voku\helper\AntiXSS;
 
 class ServiceProvider extends ServiceProviderAlias
 {
+    /**
+     * Register any application services.
+     *
+     * @return void
+     */
+    public function register()
+    {
+        $this->app->singleton(AntiXSS::class, fn () => new AntiXSS());
+    }
+
     /**
      * Bootstrap any application services.
      *

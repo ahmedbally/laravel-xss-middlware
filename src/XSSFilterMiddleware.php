@@ -4,22 +4,23 @@ namespace Alkhwlani\XssMiddleware;
 
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Foundation\Http\Middleware\TransformsRequest;
+use voku\helper\AntiXSS;
 
 class XSSFilterMiddleware extends TransformsRequest
 {
     /**
-     * @var \Alkhwlani\XssMiddleware\Repository
+     * @var array
      */
     protected $config;
 
     /**
-     * @var \GrahamCampbell\SecurityCore\Security
+     * @var \voku\helper\AntiXSS
      */
     protected $security;
 
     public function __construct(Repository $config)
     {
-        $this->security = app('security');
+        $this->security = app(AntiXSS::class);
         $this->config = $config->get('xss-middleware');
     }
 
@@ -36,7 +37,7 @@ class XSSFilterMiddleware extends TransformsRequest
             return $value;
         }
 
-        return $this->security->clean($value);
+        return $this->security->xss_clean($value);
     }
 
     /**
