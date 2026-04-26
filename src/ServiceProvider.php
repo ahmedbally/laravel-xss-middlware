@@ -2,6 +2,7 @@
 
 namespace Alkhwlani\XssMiddleware;
 
+use Illuminate\Contracts\Container\Container;
 use Illuminate\Contracts\Http\Kernel;
 use Illuminate\Support\Arr;
 use Illuminate\Support\ServiceProvider as ServiceProviderAlias;
@@ -16,7 +17,28 @@ class ServiceProvider extends ServiceProviderAlias
      */
     public function register()
     {
-        $this->app->singleton(AntiXSS::class, fn () => new AntiXSS);
+        $this->app->singleton(AntiXSS::class, function (Container $app) {
+            $antiXss = new AntiXSS;
+
+            $config = $app['config']->get('xss-middleware', []);
+
+            $replacement = $config['replacement'] ?? null;
+            if ($replacement !== null) {
+                $antiXss->setReplacement($replacement);
+            }
+
+            $evil = $config['evil'] ?? null;
+            if (is_array($evil)) {
+                if (! empty($evil['attributes'])) {
+                    $antiXss->addEvilAttributes($evil['attributes']);
+                }
+                if (! empty($evil['tags'])) {
+                    $antiXss->addEvilHtmlTags($evil['tags']);
+                }
+            }
+
+            return $antiXss;
+        });
     }
 
     /**

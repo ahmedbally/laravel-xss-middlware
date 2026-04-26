@@ -5,6 +5,7 @@ namespace Alkhwlani\XssMiddleware;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Foundation\Http\Middleware\TransformsRequest;
 use voku\helper\AntiXSS;
+use voku\helper\UTF8;
 
 class XSSFilterMiddleware extends TransformsRequest
 {
@@ -37,7 +38,17 @@ class XSSFilterMiddleware extends TransformsRequest
             return $value;
         }
 
-        return $this->security->xss_clean($value);
+        $cleaned = $this->security->xss_clean($value);
+
+        // When the value did not contain XSS, voku leaves C0 control characters
+        // (NUL, BEL, ESC, …) and DEL intact. Strip them anyway — they are
+        // common vectors for null-byte injection, log-poisoning, and terminal
+        // escape attacks, and have no place in user input.
+        if (is_string($cleaned) && $this->security->isXssFound() === false) {
+            $cleaned = UTF8::remove_invisible_characters($cleaned, true);
+        }
+
+        return $cleaned;
     }
 
     /**
